@@ -2,6 +2,11 @@
 
 class Base_Controller extends Controller {
 
+	public function __construct()
+	{
+		Asset::add('styles', 'css/styles.css');
+	}
+
 	/**
 	 * Catch-all method for requests that can't be matched.
 	 *
