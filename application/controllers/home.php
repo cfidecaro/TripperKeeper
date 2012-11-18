@@ -32,7 +32,21 @@ class Home_Controller extends Base_Controller {
 
 	public function action_index()
 	{
-		return View::make('home.index');
+		$view = View::make('home.index');
+
+		$view->menu = [
+			[
+				'items' => [
+					[
+						'label'  => 'Home',
+						'url'    => '#',
+						'active' => true
+					]
+				]
+			]
+		];
+
+		return $view;
 	}
 
 }
