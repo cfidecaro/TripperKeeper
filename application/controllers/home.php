@@ -32,15 +32,17 @@ class Home_Controller extends Base_Controller {
 
 	public function action_index()
 	{
+		Asset::add('google_maps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAjY1vSMlFplFq42d2VLTAOILxaQQMneLU&sensor=true');
+		Asset::add('map', 'js/map.js', ['jquery', 'google_maps']);
+
 		$view = View::make('home.index');
 
 		$view->menu = [
 			[
 				'items' => [
 					[
-						'label'  => 'Home',
-						'url'    => '#',
-						'active' => true
+						'label'  => '+ New Trip',
+						'url'    => '#'
 					]
 				]
 			]

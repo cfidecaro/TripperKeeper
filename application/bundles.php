@@ -38,5 +38,8 @@ return array(
 	'docs' => array('handles' => 'docs'),
 	'bootstrapper' => array('auto' => true),
 	'laraveless' => array('auto' => true),
+	'oneauth' => array('auto' => true),
+	'bundocs' => array('auto' => true, 'handles' => 'bundocs'),
+	'bob' => array('auto' => true),
 
 );
