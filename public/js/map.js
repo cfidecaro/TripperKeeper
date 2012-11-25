@@ -1,32 +1,35 @@
-var maplib = {
+var map = {
     map : false,
     current_center : false,
+    geocoder : false,
 
     init : function() {
-        maplib.current_center = maplib.latlng(20, -10);
+        map.current_center = map.latlng(20, -10);
 
         var map_config = {
-            center: maplib.current_center,
+            center: map.current_center,
             zoom: 2,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            draggable: false,
-            keyboardShortcuts: false,
-            scrollwheel: false,
+//            draggable: false,
+//            keyboardShortcuts: false,
+//            scrollwheel: false,
             mapTypeControl: false,
             panControl: false,
             streetViewControl: false
         };
 
-        maplib.map = new google.maps.Map(document.getElementById("map-canvas"), map_config);
-        google.maps.event.addDomListener(window, 'resize', maplib.recenter_map);
+        map.map = new google.maps.Map(document.getElementById("map-canvas"), map_config);
+        google.maps.event.addDomListener(window, 'resize', map.recenter_map);
 
         if (navigator.geolocation) {
-            maplib.get_user_location();
+            map.get_user_location();
         }
+
+        map.geocoder = new google.maps.Geocoder();
     },
 
     recenter_map : function() {
-        maplib.map.panTo(maplib.current_center);
+        map.map.panTo(map.current_center);
     },
 
     get_user_location : function() {
@@ -39,12 +42,12 @@ var maplib = {
 
         navigator.geolocation.getCurrentPosition(
             function(position) {
-                var user = maplib.current_center = maplib.latlng(position.coords.latitude, position.coords.longitude);
+                var user = map.current_center = map.latlng(position.coords.latitude, position.coords.longitude);
 
-                maplib.map.panTo(user);
-                maplib.map.setZoom(13);
+                map.map.panTo(user);
+                map.map.setZoom(13);
 
-                maplib.add_marker(user);
+                map.add_marker(user);
             },
             function(error) {
                 var errors = {
@@ -65,13 +68,32 @@ var maplib = {
 
     add_marker : function(latlng) {
         var options = {
-            map : maplib.map,
+            map : map.map,
             animation: google.maps.Animation.DROP,
             position: latlng
         };
 
         return new google.maps.Marker(options);
+    },
+
+    geocode : function(address, callback) {
+        var results,
+            geocode_config = {
+                'address' : address,
+                'bounds'  : map.map.getBounds()
+            };
+
+        map.geocoder.geocode(geocode_config, function(locations, status) {
+            results = {
+                locations : locations,
+                status    : status,
+                success   : !!(status == google.maps.GeocoderStatus.OK)
+            };
+
+            console.log(results);
+            callback(results);
+        });
     }
 };
 
-google.maps.event.addDomListener(window, 'load', maplib.init);
+google.maps.event.addDomListener(window, 'load', map.init);

@@ -34,6 +34,7 @@ class Home_Controller extends Base_Controller {
 	{
 		Asset::add('google_maps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAjY1vSMlFplFq42d2VLTAOILxaQQMneLU&sensor=true');
 		Asset::add('map', 'js/map.js', ['jquery', 'google_maps']);
+		Asset::add('trip', 'js/trip.js', ['jquery', 'map']);
 
 		$view = View::make('home.index');
 
@@ -42,7 +43,10 @@ class Home_Controller extends Base_Controller {
 				'items' => [
 					[
 						'label'  => '+ New Trip',
-						'url'    => '#'
+						'url'    => '#new-trip',
+						'attributes' => [
+							'data-toggle' => 'modal'
+						]
 					]
 				]
 			]
