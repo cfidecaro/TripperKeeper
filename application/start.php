@@ -171,3 +171,25 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 {
 	Session::load();
 }
+
+Event::listen('oneauth.logged', function ($client, $user_data)
+{
+	// if user already logged in, don't do anything
+	if (Auth::check())
+	{
+		Redirect::to('/');
+	}
+
+	// If user_id on client object is 0 create new user
+	// and save that id to the client
+	if(empty($client->user_id))
+	{
+		Redirect::to_action('auth@register');
+	}
+
+	else
+	{
+		Auth::login($client->user_id);
+		Redirect::to('/');
+	}
+});

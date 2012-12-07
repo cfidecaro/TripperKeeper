@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>TripperKeeper</title>
+	<title>triplo.gs</title>
 	<meta name="viewport" content="width=device-width">
 
 	<?= Asset::container('bootstrapper')->styles() ?>
@@ -23,18 +23,22 @@
             <h3>New Trip</h3>
         </div>
         <div class="modal-body">
-            <?= Form::inline_open() ?>
+            <?= Form::open(null, null, ['id' => 'add-trip-form']) ?>
 	            <fieldset>
-					<?= Form::text('add-stop', null, ['placeholder' => '123 Sesame St', 'id' => 'add-stop']) ?>
-		            <?= Form::block_help('', ['id' => 'add-stop-msg']) ?>
-		            <?= Form::button('Add stop', ['id' => 'add-stop-btn', 'data-loading-text' => 'Searching...']) ?>
+					<?= Form::control_group(
+		                    Form::label('trip-name', 'Trip name'),
+		                    Form::text('trip-name', null, ['placeholder' => 'Road trip', 'autofocus' => 'autofocus', 'id' => 'trip-name'])
+	                ) ?>
+
+		            <?= Form::control_group(
+		                    Form::label('add-stop-1', 'Enter a location and press enter'),
+		                    Form::text('stops[]', null, ['placeholder' => '123 Sesame St', 'class' => 'add-stop current', 'data-count' => '1', 'disabled' => 'disabled'])
+		            ) ?>
                 </fieldset>
 	        <?= Form::close() ?>
-
-	        <ol id="stops"></ol>
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn">Close</a>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
             <a href="#" class="btn btn-primary">Save changes</a>
         </div>
     </div>

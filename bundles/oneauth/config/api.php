@@ -20,9 +20,9 @@ return array(
 		),
 
 		'facebook' => array(
-			'id'     => '',
-			'secret' => '',
-			'scope'  => 'email,offline_access',
+			'id'     => '555270691154847',
+			'secret' => 'f3b2381e5f6fe862a20d0d4434b8af92',
+			'scope'  => 'email',
 		),
 
 		'flickr' => array(

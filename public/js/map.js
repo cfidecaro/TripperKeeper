@@ -44,10 +44,10 @@ var map = {
             function(position) {
                 var user = map.current_center = map.latlng(position.coords.latitude, position.coords.longitude);
 
-                map.map.panTo(user);
-                map.map.setZoom(13);
-
                 map.add_marker(user);
+
+                map.map.setCenter(user);
+                map.map.setZoom(12);
             },
             function(error) {
                 var errors = {
@@ -93,6 +93,16 @@ var map = {
             console.log(results);
             callback(results);
         });
+    },
+
+    adjust_bounds : function(stops) {
+        var bounds = new google.maps.LatLngBounds();
+
+        for (var i = 0, count = stops.length; i < count; i++) {
+            bounds.extend(stops[i].geometry.location);
+        }
+
+        map.map.fitBounds(bounds);
     }
 };
 

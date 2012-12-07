@@ -33,24 +33,82 @@ class Home_Controller extends Base_Controller {
 	public function action_index()
 	{
 		Asset::add('google_maps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAjY1vSMlFplFq42d2VLTAOILxaQQMneLU&sensor=true');
-		Asset::add('map', 'js/map.js', ['jquery', 'google_maps']);
-		Asset::add('trip', 'js/trip.js', ['jquery', 'map']);
+		Asset::add('map', 'js/map.js', ['jquery', 'ajax', 'google_maps']);
+		Asset::add('trip', 'js/trip.js', ['jquery', 'ajax', 'map']);
 
-		$view = View::make('home.index');
+		if (Auth::check())
+		{
+			$oneauth_token = unserialize(Session::get('oneauth.token'));
+			$image_url     = 'https://graph.facebook.com/me/picture?type=square&height=50&access_token=' . $oneauth_token->access_token;
 
-		$view->menu = [
-			[
-				'items' => [
-					[
-						'label'  => '+ New Trip',
-						'url'    => '#new-trip',
-						'attributes' => [
-							'data-toggle' => 'modal'
+			$existing_trips = [];
+
+			foreach (Auth::user()->trips as $trip)
+			{
+				$existing_trips[] = [
+					'label' => $trip->name,
+					'url'   => '#trip-' . $trip->id,
+					'attributes' => [
+						'data-toggle' => 'modal'
+					]
+				];
+			}
+
+			if (count($existing_trips))
+			{
+				$existing_trips[] = '---';
+			}
+
+			$existing_trips[] = [
+				'label'  => '+ New Trip',
+				'url'    => '#new-trip',
+				'attributes' => [
+					'data-toggle' => 'modal'
+				]
+			];
+
+			$menu = [
+				[
+					'items' => [
+						[
+							'label' => 'Trips',
+							'url'   => '#',
+							'items' => $existing_trips
+						],
+					]
+				],
+
+				[
+					'attributes' => ['class' => 'pull-right'],
+					'items'      => [
+						[
+							'label' => 'Logout',
+							'url'   => URL::to('auth/logout')
+						]
+					]
+				],
+
+				'<p class="pull-right navbar-text">' . HTML::image($image_url, Auth::user()->name, ['style' => 'height: 25px']) . ' ' . Auth::user()->name . '</p>'
+			];
+		}
+
+		else
+		{
+			$menu = [
+				[
+					'attributes' => ['class' => 'pull-right'],
+					'items'      => [
+						[
+							'label' => 'Login with Facebook',
+							'url'   => URL::to('auth/session/facebook')
 						]
 					]
 				]
-			]
-		];
+			];
+		}
+
+		$view = View::make('home.index');
+		$view->menu = $menu;
 
 		return $view;
 	}

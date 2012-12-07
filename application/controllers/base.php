@@ -5,7 +5,7 @@ class Base_Controller extends Controller {
 	public function __construct()
 	{
 		Asset::add('styles', 'css/styles.css');
-//		Asset::add('jquery', 'js/jquery-1.8.3.min.js');
+		Asset::add('ajax', 'js/ajax.js', 'jquery');
 	}
 
 	/**

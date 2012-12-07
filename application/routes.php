@@ -32,6 +32,8 @@
 |
 */
 
+Route::any('trips/(:num)/add_stop', 'trips@add_stop');
+
 Route::controller(Controller::detect());
 
 /*
