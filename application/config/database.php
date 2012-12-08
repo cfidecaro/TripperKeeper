@@ -64,9 +64,9 @@ return array(
 		'mysql' => array(
 			'driver'   => 'mysql',
 			'host'     => 'localhost',
-			'database' => 'tripperkeeper',
+			'database' => 'triplogs',
 			'username' => 'root',
-			'password' => '',
+			'password' => 'tr1nity1',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),
