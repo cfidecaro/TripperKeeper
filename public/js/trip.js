@@ -98,4 +98,6 @@ var trip = {
     }
 };
 
-trip.init();
+$(function() {
+    trip.init();
+});

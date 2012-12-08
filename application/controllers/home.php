@@ -35,6 +35,7 @@ class Home_Controller extends Base_Controller {
 		Asset::add('google_maps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAjY1vSMlFplFq42d2VLTAOILxaQQMneLU&sensor=true');
 		Asset::add('map', 'js/map.js', ['jquery', 'ajax', 'google_maps']);
 		Asset::add('trip', 'js/trip.js', ['jquery', 'ajax', 'map']);
+		Asset::add('post', 'js/post.js', ['jquery', 'ajax']);
 
 		if (Auth::check())
 		{
@@ -75,6 +76,14 @@ class Home_Controller extends Base_Controller {
 							'url'   => '#',
 							'items' => $existing_trips
 						],
+
+						[
+							'label' => '+ New Post',
+							'url'   => '#',
+							'attributes' => [
+								'id' => 'new-post-btn'
+							]
+						]
 					]
 				],
 
@@ -88,7 +97,7 @@ class Home_Controller extends Base_Controller {
 					]
 				],
 
-				'<p class="pull-right navbar-text">' . HTML::image($image_url, Auth::user()->name, ['style' => 'height: 25px']) . ' ' . Auth::user()->name . '</p>'
+				'<p class="pull-right navbar-text user-name">' . HTML::image($image_url, Auth::user()->name, ['style' => 'height: 25px']) . ' ' . Auth::user()->name . '</p>'
 			];
 		}
 
