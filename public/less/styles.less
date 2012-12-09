@@ -8,6 +8,8 @@ input,
 button.btn,
 textarea,
 select {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
 	box-sizing: content-box;
 }
 
@@ -21,41 +23,28 @@ body {
 	padding-top: 40px;
 }
 
-#post-types {
-	display: none;
-	background-color: rgba(0, 0, 0, 0.75);
-	width: 100%;
+#new-post {
+	@new-post-width: 450px;
+	@new-post-padding: 15px;
+
+	background-color: #fff;
+	width: @new-post-width;
+	padding: 0 @new-post-padding;
 	position: absolute;
 	top: 41px;
+	left: 0 - @new-post-width;
+	bottom: 0;
 	z-index: 2;
-	padding: 10px 0;
 
-	ul {
-		list-style-type: none;
-		margin: 0;
+	#post-text {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		width: @new-post-width - (@new-post-padding * 2);
+	}
 
-		li {
-			float: left;
-			width: 156px;
-			text-align: center;
-			font-size: 24px;
-
-			a {
-				width: 100%;
-				height: 100%;
-				display: block;
-				color: #fff;
-				text-decoration: none;
-				outline: none;
-			}
-
-			i[class^="icon-"] {
-				font-size: 60px;
-				line-height: 1;
-				display: block;
-				margin: 0 auto;
-			}
-		}
+	#post-media {
+		display: none;
 	}
 }
 
@@ -89,49 +78,15 @@ body {
 	    display: none;
     }
 
-    #post-types {
-	    top: 51px;
-	    bottom: 0;
+	#new-post {
+		top: 51px;
+		width: 280px;
 
-	    ul {
-		    position: absolute;
-		    top: 0;
-		    bottom: 0;
-		    width: 100%;
-
-		    display: -webkit-flex;
-		    -webkit-flex-flow: row wrap;
-
-		    display: -moz-flex;
-		    -moz-flex-flow: row wrap;
-
-		    display: -ms-flex;
-		    -ms-flex-flow: row wrap;
-
-		    display: flex;
-		    flex-flow: row wrap;
-
-		    li {
-			    width: 50%;
-
-			    display: -webkit-flex;
-			    -webkit-flex-flow: column;
-			    -webkit-justify-content: center;
-
-			    display: -mox-flex;
-			    -moz-flex-flow: column;
-			    -mox-justify-content: center;
-
-			    display: -ms-flex;
-			    -ms-flex-flow: column;
-			    -ms-justify-content: center;
-
-			    display: flex;
-			    flex-flow: column;
-			    justify-content: center;
-		    }
-	    }
-    }
+		#post-text {
+			width: 250px;
+			height: 100px;
+		}
+	}
 }
 
 @media (max-width: 979px) {

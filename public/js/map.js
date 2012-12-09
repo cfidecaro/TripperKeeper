@@ -2,6 +2,7 @@ var map = {
     map : false,
     current_center : false,
     geocoder : false,
+    user_location : false,
 
     init : function() {
         map.current_center = map.latlng(20, -10);
@@ -42,11 +43,11 @@ var map = {
 
         navigator.geolocation.getCurrentPosition(
             function(position) {
-                var user = map.current_center = map.latlng(position.coords.latitude, position.coords.longitude);
+                map.user_location = map.current_center = map.latlng(position.coords.latitude, position.coords.longitude);
 
-                map.add_marker(user);
+                map.add_marker(map.user_location);
 
-                map.map.setCenter(user);
+                map.map.setCenter(map.user_location);
                 map.map.setZoom(12);
             },
             function(error) {

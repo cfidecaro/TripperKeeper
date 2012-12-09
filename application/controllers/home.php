@@ -35,7 +35,7 @@ class Home_Controller extends Base_Controller {
 		Asset::add('google_maps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAjY1vSMlFplFq42d2VLTAOILxaQQMneLU&sensor=true');
 		Asset::add('map', 'js/map.js', ['jquery', 'ajax', 'google_maps']);
 		Asset::add('trip', 'js/trip.js', ['jquery', 'ajax', 'map']);
-		Asset::add('post', 'js/post.js', ['jquery', 'ajax']);
+		Asset::add('post', 'js/post.js', ['jquery', 'ajax', 'map']);
 
 		if (Auth::check())
 		{

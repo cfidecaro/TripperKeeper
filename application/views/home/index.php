@@ -15,29 +15,35 @@
 <body>
 	<?= Navbar::create('triplo.gs', '#', $menu, Navbar::FIX_TOP) ?>
 
-	<div id="post-types">
-		<div class="container">
-			<ul>
-				<li><a href="#text-post" data-toggle="modal"><i class="icon-edit"></i>Text</a></li>
-				<li><a href="#picture-post" data-toggle="modal"><i class="icon-picture"></i>Photo</a></li>
-				<li><a href="#video-post" data-toggle="modal"><i class="icon-facetime-video"></i>Video</a></li>
-				<li><a href="#music-post" data-toggle="modal"><i class="icon-music"></i>Song</a></li>
-				<li><a href="#check-in-post" data-toggle="modal"><i class="icon-map-marker"></i>Check in</a></li>
-				<li><a href="#person-post" data-toggle="modal"><i class="icon-user"></i>Person</a></li>
-			</ul>
-		</div>
+	<div id="new-post">
+		<h2>New Post</h2>
+
+		<?= Form::open_for_files('posts/add_post', 'POST', ['id' => 'new-post-form']) ?>
+			<div id="text">
+				<?= Form::textarea('post-text', null, ['id' => 'post-text', 'placeholder' => 'Post text']) ?>
+			</div>
+
+			<div id="meta">
+				<?= Form::file('post-media', ['id' => 'post-media', 'accept' => 'image/*|video/*']) ?>
+				<?= Form::hidden('post-location', '', ['id' => 'post-location']) ?>
+
+				<?= Buttons::normal('Add Photo/Video', ['id' => 'post-add-media']) ?>
+				<?= Buttons::normal('Add Location', ['id' => 'post-add-location']) ?>
+				<?= Buttons::normal('Add Person', ['id' => 'post-add-person']) ?>
+			</div>
+
+			<div id="preview">
+
+			</div>
+
+			<?= Buttons::submit('Save Post', ['id' => 'post-save']) ?>
+		<?= Form::close() ?>
 	</div>
 
 	<div id="map-canvas"></div>
 
 	<div id="modals">
 		<?= render('modals.new-trip'); ?>
-		<?= render('modals.text-post'); ?>
-		<?= render('modals.picture-post'); ?>
-		<?= render('modals.video-post'); ?>
-		<?= render('modals.music-post'); ?>
-		<?= render('modals.check-in-post'); ?>
-		<?= render('modals.person-post'); ?>
 	</div>
 </body>
 </html>
